@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile
+    image: django-blog-api
+    container_name: django-blog-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    env_file:
+      - .env
+    networks:
+      - blog-network
+
+  db:
+    image: mysql:8.0
+    container_name: django-blog-db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: blog_db
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - blog-network
+
+networks:
+  blog-network:
+
+volumes:
+  mysql-data:
