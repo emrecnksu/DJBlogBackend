@@ -1,0 +1,33 @@
+{% extends 'frontend/layouts/base.html' %}
+{% load tz %}
+
+{% block title %}Blog Anasayfa{% endblock %}
+
+{% block content %}
+
+    <div class="card shadow-sm p-4">
+
+        <h3 class="mb-3">Kategoriler</h3>
+        <ul class="list-group mb-4">
+            {% for category in categories %}
+                <li class="list-group-item">
+                    <a href="{% url 'category_posts' slug=category.slug %}">{{ category.name }}</a>
+                </li>
+            {% empty %}
+                <li class="list-group-item">Henüz kategori bulunamadı.</li>
+            {% endfor %}
+        </ul>
+
+        <h3 class="mb-3">Gönderiler</h3>
+        <ul class="list-group">
+            {% for post in posts %}
+                <li class="list-group-item">
+                    <a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a> - {{ post.created_at|localtime|date:"Y-m-d H:i" }}
+                </li>
+            {% empty %}
+                <li class="list-group-item">Henüz gönderi bulunamadı.</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+{% endblock %}

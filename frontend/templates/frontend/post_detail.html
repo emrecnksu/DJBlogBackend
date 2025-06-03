@@ -1,0 +1,39 @@
+{% extends 'frontend/layouts/base.html' %}
+{% load tz %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm p-4">
+
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.content }}</p>
+    <p class="text-muted">Yayınlanma Tarihi : {{ post.created_at|localtime|date:"Y-m-d H:i" }}</p>
+
+    <h5 class="mt-4">Yorumlar</h5>
+    <ul class="list-group mb-4">
+        {% for comment in comments %}
+            <li class="list-group-item">{{ comment.author }}: {{ comment.content }}</li>
+        {% empty %}
+            <li class="list-group-item">Henüz yorum bulunmuyor.</li>
+        {% endfor %}
+    </ul>
+
+    <h5>Yorum Ekle:</h5>
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'add_comment' slug=post.slug %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <textarea class="form-control" name="content" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-secondary">Gönder</button>
+        </form>
+    {% else %}
+        <p>Yorum yapmak için <a href="{% url 'login' %}">giriş yapmalısınız</a>.</p>
+    {% endif %}
+
+    <div class="container p-0">
+        <a href="{% url 'home' %}" class="btn btn-primary mt-3">Anasayfa</a>
+    </div>
+</div>
+{% endblock %}

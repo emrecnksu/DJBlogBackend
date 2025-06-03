@@ -1,0 +1,25 @@
+{% extends 'frontend/layouts/base.html' %}
+{% load tz %}
+
+{% block title %}{{ current_category.name }} Kategorisi{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm p-4">
+
+    <h3>{{ current_category.name }} Kategorisi</h3>
+
+    <h5 class="mt-4">Gönderiler</h5>
+    <ul class="list-group">
+        {% for post in posts %}
+            <li class="list-group-item">
+                <a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a> - {{ post.created_at|localtime|date:"Y-m-d H:i" }}
+            </li>
+        {% empty %}
+            <li class="list-group-item">Bu kategoride henüz gönderi yok.</li>
+        {% endfor %}
+    </ul>
+    <div class="container p-0">
+        <a href="{% url 'home' %}" class="btn btn-primary mt-3">Anasayfa</a>
+    </div>
+</div>
+{% endblock %}

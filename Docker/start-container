@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Waits until the database (MySQL) is ready
+echo "Waiting for database..."
+until nc -z -v -w30 $DB_HOST $DB_PORT
+do
+  echo "Waiting for MySQL at $DB_HOST:$DB_PORT..."
+  sleep 5
+done
+
+# Start migrations
+python manage.py migrate
+
+# Start django server
+python manage.py runserver 0.0.0.0:8000

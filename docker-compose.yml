@@ -1,0 +1,39 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile
+    image: blog-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    env_file:
+      - .env
+    networks:
+      - blog-api-network
+    environment:
+      - LC_ALL=tr_TR.UTF-8
+      - LANG=tr_TR.UTF-8
+
+  db:
+    image: mysql:8.0
+    container_name: blog-api-db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: blog-api-db
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - blog-api-network
+
+networks:
+  blog-api-network:
+
+volumes:
+  mysql-data:

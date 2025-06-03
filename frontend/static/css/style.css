@@ -1,0 +1,19 @@
+.navbar-custom {
+    background-color: #002147; 
+}
+
+body {
+    background-color: #033c674a;
+}
+
+body .container .card {
+    background-color: rgba(221 233 245)
+}
+
+.list-group-item {
+    background-color: rgba(249, 251, 255, 0.63);
+}
+
+.form-control {
+    background-color: rgba(249, 251, 255, 0.63)
+}
