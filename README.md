@@ -130,10 +130,8 @@ docker-compose up --build
 
 ## Important Notes
 
-- ⚠️ **NEVER COMMIT YOUR `.env` FILE TO THE REPOSITORY!**
 - Use `.env.example` as a public template for your environment variables.
 - Docker volumes (`mysql-data/`) are excluded from version control.
-- All Python cache files (`__pycache__/`, `.pyc`) are excluded via `.gitignore`.
 
 ---
 
@@ -271,7 +269,5 @@ docker-compose up --build
 
 ## Önemli Notlar
 
-- ⚠️ **`.env` dosyasını kesinlikle versiyona (GitHub) yüklemeyin!**
 - Ortam değişkenleri için `.env.example` dosyası public olarak mevcuttur.
 - Docker'ın oluşturduğu MySQL volume klasörü (`mysql-data/`) versiyona dahil edilmez.
-- Python önbellek dosyaları (`__pycache__/`, `.pyc`) `.gitignore` ile dışlanmıştır.
